@@ -95,6 +95,11 @@ public class Drivetrain {
         this.currentDrivetrainMode = desiredMode;
     }
 
+    //Returns encoder tick
+    public double[] getWheelEncoderValues() {
+        return new double[]{this.tankL.getCurrentPosition(), this.tankR.getCurrentPosition()};
+    }
+
     //Returns in ticks per second
     public double getCurrentVelocity() {
         double currentLVelocity = this.tankL.getVelocity();
