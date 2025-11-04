@@ -6,7 +6,7 @@ public class IDs {
     public static final String TANK_LEFT_ID = "1";
     public static final String CONTROL_HUB = "Control hub";
     public static final String CONTROL_HUB_IMU = "IMU";
-
+    public static final String SHOOTER_MOTOR_ID = "Shooter";
 
 
 }

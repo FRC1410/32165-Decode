@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystem.Shooter;
 import org.firstinspires.ftc.teamcode.Util.RobotStates;
 import org.firstinspires.ftc.teamcode.Util.Toggle;
 
@@ -12,12 +13,14 @@ import org.firstinspires.ftc.teamcode.Util.Toggle;
 public class Robot extends OpMode {
     private final Drivetrain drivetrain = new Drivetrain();
 
+    private final Shooter shooter = new Shooter();
 
     private final Toggle drivetrainToggle = new Toggle();
     
     public void init() {
         this.drivetrain.init(hardwareMap);
 
+        this.shooter.init(hardwareMap);
     }
 
     @Override
@@ -30,6 +33,6 @@ public class Robot extends OpMode {
                 gamepad1.left_stick_y,
                 drivetrainToggle.toggleButton(gamepad1.a)
         );
-
+        this.shooter.run(gamepad1.right_trigger, gamepad1.left_trigger);
     }
 }
