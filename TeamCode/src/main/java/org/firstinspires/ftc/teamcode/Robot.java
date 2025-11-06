@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystem.Intake;
 import org.firstinspires.ftc.teamcode.Util.RobotStates;
 import org.firstinspires.ftc.teamcode.Util.Toggle;
 
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Util.Toggle;
 public class Robot extends OpMode {
     private final Drivetrain drivetrain = new Drivetrain();
 
-
+    private final Intake intake = new Intake();
     private final Toggle drivetrainToggle = new Toggle();
     
     public void init() {
@@ -31,5 +32,6 @@ public class Robot extends OpMode {
                 drivetrainToggle.toggleButton(gamepad1.a)
         );
 
+        this.intake.run(gamepad1.left_trigger, gamepad1.right_trigger);
     }
 }
