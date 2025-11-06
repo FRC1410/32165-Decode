@@ -22,4 +22,7 @@ public class Constants {
             RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
     public static RevHubOrientationOnRobot HUB_ORIENTATION =
             new RevHubOrientationOnRobot(LOGO_FACING_DIRECTION, USB_FACING_DIRECTION);
+
+    //controller
+    public static final double MATCH_HALF_TIME = 60.0;
 }

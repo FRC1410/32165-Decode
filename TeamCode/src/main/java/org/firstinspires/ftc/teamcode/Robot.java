@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
+import org.firstinspires.ftc.teamcode.Util.DriverUtil.ControlScheme;
 import org.firstinspires.ftc.teamcode.Util.RobotStates;
 import org.firstinspires.ftc.teamcode.Util.Toggle;
 
@@ -26,9 +27,9 @@ public class Robot extends OpMode {
         this.drivetrain.drivetrainData(telemetry);
 
         this.drivetrain.tankDrive(
-                gamepad1.right_stick_y,
-                gamepad1.left_stick_y,
-                drivetrainToggle.toggleButton(gamepad1.a)
+                ControlScheme.RIGHT_SIDE_DRIVE.get(),
+                ControlScheme.LEFT_SIDE_DRIVE.get(),
+                drivetrainToggle.toggleButton(ControlScheme.DRIVE_SLOW_MODE.get())
         );
 
     }
