@@ -33,6 +33,6 @@ public class Robot extends OpMode {
                 gamepad1.left_stick_y,
                 drivetrainToggle.toggleButton(gamepad1.a)
         );
-        this.shooter.run(gamepad1.right_trigger, gamepad1.left_trigger);
+        this.shooter.run(RobotStates.ShooterStates.FORWARD);
     }
 }

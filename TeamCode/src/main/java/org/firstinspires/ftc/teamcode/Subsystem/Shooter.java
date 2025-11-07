@@ -6,6 +6,9 @@ import static org.firstinspires.ftc.teamcode.Util.IDs.SHOOTER_MOTOR_ID;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.Util.RobotStates;
+
 public class Shooter {
 
     private DcMotorEx motorShooter;
@@ -24,10 +27,25 @@ public class Shooter {
         this.motorShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void run(Float firstAxisValue, Float secondAxisValue) {
+    public void run(RobotStates.ShooterStates shooterState) {
 
-        this.motorShooter.setPower(firstAxisValue - secondAxisValue);
+        //this.motorShooter.setPower(firstAxisValue - secondAxisValue);
+//        if(forward) {
+//
+//            this.motorShooter.setPower(1);
+//        }else{
+//            this.motorShooter.setPower(-1);
+//        }
 
-
+        switch (shooterState) {
+            case FORWARD:
+                this.motorShooter.setPower(1);
+            case BACKWARD:
+                this.motorShooter.setPower(-1);
+            case NEUTRAL:
+                this.motorShooter.setPower(0);
+            case HALF_POWER:
+                this.motorShooter.setPower(.5);
+        }
     }
 }
