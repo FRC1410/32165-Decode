@@ -19,6 +19,8 @@ public class Auto extends LinearOpMode {
         DRIVE_FORWARD,
         TURN_RIGHT,
         TURN_LEFT,
+        TURN_RIGHT_SHORT,
+        TURN_LEFT_SHORT,
         DONE,
         NONE
     }
@@ -34,29 +36,54 @@ public class Auto extends LinearOpMode {
         switch (this.step) {
             case DRIVE_FORWARD:
                 if ((Math.abs(280-this.drivetrain.getWheelEncoderValues()[1]) < 50) && (Math.abs(280-this.drivetrain.getWheelEncoderValues()[1]) <= 50)) {
-                    this.step = Steps.DONE;
+                    this.step = Steps.TURN_RIGHT;
                     speeds = new double[]{0, 0};
                 } else {
                     speeds = new double[]{50, 50};
                 }
+                break;
             case TURN_LEFT:
-                if (lastAngle + getAngle() == -90) {
+                if (Math.abs(this.lastAngle + getAngle() + 90) < 5) {
                     this.step = Steps.NONE; // Next step
                     speeds = new double[]{0, 0};
+                    this.lastAngle = getAngle();
                 } else {
                     speeds = new double[]{-10, 10};
                 }
+                break;
             case TURN_RIGHT:
-                if (lastAngle + getAngle() == 90) {
+                if (Math.abs(this.lastAngle + getAngle() - 90) < 5) {
                     this.step = Steps.NONE; //Next step
                     speeds = new double[]{0, 0};
+                    this.lastAngle = getAngle();
                 } else {
                     speeds = new double[]{10, -10};
                 }
+                break;
+            case TURN_LEFT_SHORT:
+                if (Math.abs(this.lastAngle + getAngle() + 45) < 5) {
+                    this.step = Steps.NONE; //Next step
+                    speeds = new double[]{0, 0};
+                    this.lastAngle = getAngle();
+                } else {
+                    speeds = new double[]{-10, 10};
+                }
+                break;
+            case TURN_RIGHT_SHORT:
+                if (Math.abs(this.lastAngle + getAngle() - 45) < 5) {
+                    this.step = Steps.NONE; //Next step
+                    speeds = new double[]{0, 0};
+                    this.lastAngle = getAngle();
+                } else {
+                    speeds = new double[]{10, -10};
+                }
+                break;
             case DONE:
                 speeds = new double[]{0, 0};
+                break;
             default:
                 speeds = new double[]{0, 0};
+                break;
         }
 
         return speeds;
@@ -65,11 +92,15 @@ public class Auto extends LinearOpMode {
     @Override
     public void runOpMode() {
         waitForStart();
-
+        this.drivetrain.init(hardwareMap);
+        telemetry.addData("Auto Data", "Starting Auto");
+        telemetry.update();
         while (opModeIsActive()) {
             double[] speeds = calculateSpeeds();
-            this.drivetrain.tankDrive(speeds[0], speeds[1], false);
+            this.drivetrain.tankDrive(speeds[0], speeds[1], true);
         }
-     }
+        telemetry.addData("Auto Data", "Auto Done");
+        telemetry.update();
+    }
 
 }
