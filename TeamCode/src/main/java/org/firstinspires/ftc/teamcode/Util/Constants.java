@@ -23,6 +23,12 @@ public class Constants {
     public static RevHubOrientationOnRobot HUB_ORIENTATION =
             new RevHubOrientationOnRobot(LOGO_FACING_DIRECTION, USB_FACING_DIRECTION);
 
+    //SETPOS
+    public static final double PADDLE_POS_1 = 0.0;
+    public static final double PADDLE_POS_2 = 0.0;
+
     //controller
     public static final double MATCH_HALF_TIME = 60.0;
+
+
 }

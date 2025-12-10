@@ -35,8 +35,8 @@ public class Drivetrain {
         this.tankL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.tankR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        this.tankL.setDirection(REVERSE);
-        this.tankR.setDirection(FORWARD);
+        this.tankL.setDirection(FORWARD);
+        this.tankR.setDirection(REVERSE);
 
         this.tankL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.tankR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
