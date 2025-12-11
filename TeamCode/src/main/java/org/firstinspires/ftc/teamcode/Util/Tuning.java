@@ -11,4 +11,9 @@ public class Tuning {
 
     public static int TRANSFER_THRESHHOLD = 12;
 
+    public static double INDEXER_P = 0.0;
+    public static double INDEXER_I = 0.0;
+    public static double INDEXER_D = 0.0;
+    public static int INDEXER_THRESHHOLD = 12;
+
 }

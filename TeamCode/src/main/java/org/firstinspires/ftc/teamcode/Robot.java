@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystem.Indexer;
 import org.firstinspires.ftc.teamcode.Subsystem.Intake;
 import org.firstinspires.ftc.teamcode.Subsystem.TransferWithPID;
 import org.firstinspires.ftc.teamcode.Util.DriverUtil.ControlScheme;
@@ -23,6 +24,7 @@ public class Robot extends OpMode {
     private final Intake intake = new Intake();
 
     private final TransferWithPID transfer = new TransferWithPID();
+    private final Indexer indexer = new Indexer();
     private final Toggle drivetrainToggle = new Toggle();
     
     private ElapsedTime runtime;
@@ -37,6 +39,7 @@ public class Robot extends OpMode {
         this.intake.init(hardwareMap);
         this.shooter.init(hardwareMap);
         this.transfer.init(hardwareMap);
+        this.indexer.init(hardwareMap);
 
         this.runtime = new ElapsedTime();
         this.rumblerDriver = new Rumbler(gamepad1, runtime);
@@ -48,6 +51,7 @@ public class Robot extends OpMode {
         this.drivetrain.drivetrainData(telemetry);
         this.shooter.shooterTelem(telemetry);
         this.transfer.doTelemetry(telemetry);
+        this.indexer.doTelemetry(telemetry);
 
         //this always goes last in this method:
         telemetry.update();
@@ -75,6 +79,11 @@ public class Robot extends OpMode {
                 ControlScheme.TRANSFER_TRANSFER.get()
         );
         this.transfer.update();
+
+        this.indexer.goToRed(ControlScheme.INDEXER_RED.get());
+        this.indexer.goToBlue(ControlScheme.INDEXER_BLUE.get());
+        this.indexer.goToWhite(ControlScheme.INDEXER_WHITE.get());
+        this.indexer.update();
 
         this.rumblerDriver.update();
         this.rumblerOperator.update();

@@ -9,6 +9,8 @@ public class IDs {
     public static final String SHOOTER_MOTOR_ID = "3";
 
     public static final String TRANSFER_MOTOR_ID = "4";
+
+    public static final String INDEXER_MOTOR_ID = "5";
     public static final String CONTROL_HUB = "Control hub";
     public static final String CONTROL_HUB_IMU = "IMU";
 

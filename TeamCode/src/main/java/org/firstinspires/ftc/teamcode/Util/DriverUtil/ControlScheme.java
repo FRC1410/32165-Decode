@@ -28,7 +28,10 @@ public class ControlScheme {
     public static Supplier<Boolean> TRANSFER_CLEAR;
     public static Supplier<Boolean> TRANSFER_TRANSFER;
 
-
+    //Indexer
+    public static Supplier<Boolean> INDEXER_RED;
+    public static Supplier<Boolean> INDEXER_BLUE;
+    public static Supplier<Boolean> INDEXER_WHITE;
 
     public static void initDriver(Gamepad gamepad1) {
         LEFT_SIDE_DRIVE = () -> gamepad1.left_stick_y;
@@ -46,6 +49,8 @@ public class ControlScheme {
         TRANSFER_CLEAR = () -> gamepad2.right_bumper;
         TRANSFER_TRANSFER = () -> gamepad2.left_bumper;
 
-
+        INDEXER_RED = () -> gamepad2.a;
+        INDEXER_BLUE = () -> gamepad2.b;
+        INDEXER_WHITE = () -> gamepad2.x;
     }
 }
