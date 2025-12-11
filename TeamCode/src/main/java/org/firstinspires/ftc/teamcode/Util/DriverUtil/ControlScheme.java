@@ -26,7 +26,7 @@ public class ControlScheme {
     public static Supplier<Float> TRANSFER_OUT;
 
     public static Supplier<Boolean> TRANSFER_CLEAR;
-    public static Supplier<Boolean> TRANSFER_TRANSFER;
+    public static Supplier<Boolean> TRANSFER_ACTIVE;
 
     //Indexer
     public static Supplier<Boolean> INDEXER_RED;
@@ -44,10 +44,8 @@ public class ControlScheme {
     public static void initOperator(Gamepad gamepad2){
         SHOOTER_POWER_PLUS = () -> gamepad2.right_trigger;
         SHOOTER_POWER_MINUS = () -> gamepad2.left_trigger;
-        TRANSFER_IN = () -> gamepad2.right_stick_y > 0 ? gamepad2.right_stick_y : 0;
-        TRANSFER_OUT = () -> gamepad2.right_stick_y < 0 ? -gamepad2.right_stick_y : 0;
         TRANSFER_CLEAR = () -> gamepad2.right_bumper;
-        TRANSFER_TRANSFER = () -> gamepad2.left_bumper;
+        TRANSFER_ACTIVE = () -> gamepad2.left_bumper;
 
         INDEXER_RED = () -> gamepad2.a;
         INDEXER_BLUE = () -> gamepad2.b;
