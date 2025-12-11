@@ -122,6 +122,5 @@ public class Drivetrain {
         telemetry.addData("Right: ", this.tankR.getCurrentPosition());
         telemetry.addData("Velocity L: ", this.tankL.getVelocity());
         telemetry.addData("Velocity R:", this.tankR.getVelocity());
-        telemetry.update();
     }
 }

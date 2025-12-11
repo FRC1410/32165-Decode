@@ -44,10 +44,10 @@ public class Robot extends OpMode {
 
     }
 
-    public void doTelemetry(Telemetry telemetry) {
-        //this.drivetrain.drivetrainData(telemetry);
+    public void doTelemetry() {
+        this.drivetrain.drivetrainData(telemetry);
         this.shooter.shooterTelem(telemetry);
-        //this.transfer.doTelemetry(telemetry);
+        this.transfer.doTelemetry(telemetry);
 
         //this always goes last in this method:
         telemetry.update();
@@ -79,6 +79,6 @@ public class Robot extends OpMode {
         this.rumblerDriver.update();
         this.rumblerOperator.update();
 
-        doTelemetry(telemetry);
+        doTelemetry();
     }
 }
