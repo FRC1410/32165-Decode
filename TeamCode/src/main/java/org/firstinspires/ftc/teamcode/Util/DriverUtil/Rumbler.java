@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Util.DriverUtil;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import static org.firstinspires.ftc.teamcode.Util.Constants.*;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,44 +7,58 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Rumbler {
 
-    boolean highLevel = false;
+    private Gamepad gamepad;
+    private ElapsedTime runtime;
 
-    boolean secondHalf = false;
+    private boolean halfTimeRumbled = false;
+    private boolean endGameRumbled = false;
 
-    Gamepad.RumbleEffect halftimerumbleEffect;
+    // Match is 2 minutes = 120 seconds
+    public static final double MATCH_LENGTH = 120.0;
+    public static final double END_GAME_WARNING = MATCH_LENGTH - 15.0; // 105 seconds
 
-    Gamepad.RumbleEffect leftrumbleEffect;
-    Gamepad.RumbleEffect rightrumbleEffect;
+    Gamepad.RumbleEffect halfTimeRumbleEffect;
+    Gamepad.RumbleEffect endGameRumbleEffect;
 
-    ElapsedTime runtime = new ElapsedTime();
+    public Rumbler(Gamepad gamepad, ElapsedTime runtime) {
+        this.gamepad = gamepad;
+        this.runtime = runtime;
 
-    public void halfimeRumble(){
-
-        //format is .addStep( <left motor strength(0-1)>, <right motor strength(0-1)>, <duration(miliseconds)>)
-        halftimerumbleEffect = new Gamepad.RumbleEffect.Builder()
+        // Left side rumble for half time
+        halfTimeRumbleEffect = new Gamepad.RumbleEffect.Builder()
                 .addStep(1.0, 0.0, 500)
-                .addStep(0.0, 1.0, 500)
+                .addStep(0.0, 0.0, 200)
+                .addStep(1.0, 0.0, 500)
+                .build();
+
+        // Both sides rumble for end game warning
+        endGameRumbleEffect = new Gamepad.RumbleEffect.Builder()
+                .addStep(1.0, 1.0, 500)
+                .addStep(0.0, 0.0, 200)
+                .addStep(1.0, 1.0, 500)
+                .addStep(0.0, 0.0, 200)
                 .addStep(1.0, 1.0, 500)
                 .build();
+    }
 
-        runtime.reset();
+    public void update() {
+        double elapsedTime = runtime.seconds();
 
-        if ((runtime.seconds() > MATCH_HALF_TIME) && !secondHalf)  {
-            gamepad1.runRumbleEffect(halftimerumbleEffect);
-            secondHalf = true;
+        // Rumble left at half time
+        if (elapsedTime >= MATCH_HALF_TIME && !halfTimeRumbled) {
+            gamepad.runRumbleEffect(halfTimeRumbleEffect);
+            halfTimeRumbled = true;
         }
 
+        // Rumble both sides at 15 seconds left
+        if (elapsedTime >= END_GAME_WARNING && !endGameRumbled) {
+            gamepad.runRumbleEffect(endGameRumbleEffect);
+            endGameRumbled = true;
+        }
     }
 
-    public void rumbleLeft(float intensity, int milis){
-        leftrumbleEffect = new Gamepad.RumbleEffect.Builder()
-                .addStep(intensity, 0.0, milis)
-                .build();
-    }
-
-    public void rumbleRight(float intensity, int milis){
-        leftrumbleEffect = new Gamepad.RumbleEffect.Builder()
-                .addStep(0.0, intensity, milis)
-                .build();
+    public void reset() {
+        halfTimeRumbled = false;
+        endGameRumbled = false;
     }
 }

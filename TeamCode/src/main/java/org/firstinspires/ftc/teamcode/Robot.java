@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystem.Intake;
 import org.firstinspires.ftc.teamcode.Subsystem.TransferWithPID;
 import org.firstinspires.ftc.teamcode.Util.DriverUtil.ControlScheme;
+import org.firstinspires.ftc.teamcode.Util.DriverUtil.Rumbler;
 import org.firstinspires.ftc.teamcode.Subsystem.Shooter;
 import org.firstinspires.ftc.teamcode.Util.Toggle;
 
@@ -20,9 +22,13 @@ public class Robot extends OpMode {
 
     private final Intake intake = new Intake();
 
-private final TransferWithPID transfer = new TransferWithPID();
+    private final TransferWithPID transfer = new TransferWithPID();
     private final Toggle drivetrainToggle = new Toggle();
     
+    private ElapsedTime runtime;
+    private Rumbler rumblerDriver;
+    private Rumbler rumblerOperator;
+
     public void init() {
         this.drivetrain.init(hardwareMap);
         ControlScheme.initDriver(gamepad1);
@@ -31,6 +37,11 @@ private final TransferWithPID transfer = new TransferWithPID();
         this.intake.init(hardwareMap);
         this.shooter.init(hardwareMap);
         this.transfer.init(hardwareMap);
+
+        this.runtime = new ElapsedTime();
+        this.rumblerDriver = new Rumbler(gamepad1, runtime);
+        this.rumblerOperator = new Rumbler(gamepad2, runtime);
+
     }
 
     public void doTelemetry(Telemetry telemetry) {
@@ -64,6 +75,9 @@ private final TransferWithPID transfer = new TransferWithPID();
                 ControlScheme.TRANSFER_TRANSFER.get()
         );
         this.transfer.update();
+
+        this.rumblerDriver.update();
+        this.rumblerOperator.update();
 
         doTelemetry(telemetry);
     }
