@@ -25,10 +25,12 @@ public class Constants {
 
     //SETPOS
     public static final double PADDLE_POS_1 = 0.0;
-    public static final double PADDLE_POS_2 = 0.0;
+    public static final double PADDLE_POS_2 = 250.0;
 
     //controller
     public static final double MATCH_HALF_TIME = 60.0;
+
+    public static final double SHOOTER_REDUCTION = 2.0;
 
 
 }

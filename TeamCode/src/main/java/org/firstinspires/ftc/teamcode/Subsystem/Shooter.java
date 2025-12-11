@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystem;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 import static org.firstinspires.ftc.teamcode.Util.IDs.*;
+import static org.firstinspires.ftc.teamcode.Util.Constants.*;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -34,7 +35,7 @@ public class Shooter {
 
     public void run(Float firstAxisValue, Float secondAxisValue) {
 
-        this.motorShooter.setPower(firstAxisValue - secondAxisValue);
+        this.motorShooter.setPower((firstAxisValue / SHOOTER_REDUCTION) - (secondAxisValue / SHOOTER_REDUCTION));
 
 
     }

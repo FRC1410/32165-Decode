@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.Util.IDs.*;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import static org.firstinspires.ftc.teamcode.Util.Constants.*;
@@ -18,7 +19,8 @@ public class TransferWithPID {
 
     DcMotorEx paddleMotor;
     PIDController transferPID;
-
+    ElapsedTime transferTimer;
+    boolean waitingToReturnToClear = false;
 
     RobotStates.Transfer currentState = RobotStates.Transfer.CLEAR;
 
@@ -35,6 +37,7 @@ public class TransferWithPID {
         this.paddleMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         this.transferPID = new PIDController(TRANSFER_P, TRANSFER_I, TRANSFER_D);
+        this.transferTimer = new ElapsedTime();
     }
 
     public RobotStates.Transfer getCurrentState() {
@@ -51,11 +54,11 @@ public class TransferWithPID {
     public double getTargetPos(RobotStates.Transfer desiredState) {
         switch (desiredState) {
             case CLEAR:
-                return PADDLE_POS_1;
-            case TRANSFER:
                 return PADDLE_POS_2;
-            default:
+            case TRANSFER:
                 return PADDLE_POS_1;
+            default:
+                return PADDLE_POS_2;
         }
     }
 
@@ -69,7 +72,27 @@ public class TransferWithPID {
         double currentPos = this.getCurrentPos();
         double error = targetPos - currentPos;
 
-        if (Math.abs(error) <= TRANSFER_THRESHHOLD) {
+        boolean atTarget = Math.abs(error) <= TRANSFER_THRESHHOLD;
+
+        // If we're in TRANSFER state and at the target position, start the timer
+        if (desiredState == RobotStates.Transfer.TRANSFER && atTarget) {
+            if (!waitingToReturnToClear) {
+                // Just reached transfer position, start timer
+                waitingToReturnToClear = true;
+                transferTimer.reset();
+            } else if (transferTimer.seconds() >= 1.0) {
+                // Timer elapsed, go back to CLEAR
+                this.setCurrentState(RobotStates.Transfer.CLEAR);
+                waitingToReturnToClear = false;
+            }
+        }
+
+        // Reset the waiting flag if we're not in TRANSFER state
+        if (desiredState != RobotStates.Transfer.TRANSFER) {
+            waitingToReturnToClear = false;
+        }
+
+        if (atTarget) {
             this.paddleMotor.setPower(0);
             return 0;
         }

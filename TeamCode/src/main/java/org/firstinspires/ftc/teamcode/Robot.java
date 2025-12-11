@@ -6,11 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystem.Intake;
-import org.firstinspires.ftc.teamcode.Subsystem.Transfer;
 import org.firstinspires.ftc.teamcode.Subsystem.TransferWithPID;
 import org.firstinspires.ftc.teamcode.Util.DriverUtil.ControlScheme;
 import org.firstinspires.ftc.teamcode.Subsystem.Shooter;
-import org.firstinspires.ftc.teamcode.Util.RobotStates;
 import org.firstinspires.ftc.teamcode.Util.Toggle;
 
 
@@ -36,8 +34,9 @@ private final TransferWithPID transfer = new TransferWithPID();
     }
 
     public void doTelemetry(Telemetry telemetry) {
-        this.drivetrain.drivetrainData(telemetry);
+        //this.drivetrain.drivetrainData(telemetry);
         this.shooter.shooterTelem(telemetry);
+        //this.transfer.doTelemetry(telemetry);
 
         //this always goes last in this method:
         telemetry.update();
@@ -64,6 +63,7 @@ private final TransferWithPID transfer = new TransferWithPID();
         this.transfer.goToTransfer(
                 ControlScheme.TRANSFER_TRANSFER.get()
         );
+        this.transfer.update();
 
         doTelemetry(telemetry);
     }

@@ -34,8 +34,8 @@ public class ControlScheme {
         LEFT_SIDE_DRIVE = () -> gamepad1.left_stick_y;
         RIGHT_SIDE_DRIVE = () -> gamepad1.right_stick_y;
         DRIVE_SLOW_MODE = () -> gamepad1.a;
-        INTAKE_IN = () -> gamepad1.left_trigger;
-        INTAKE_OUT = () -> gamepad1.right_trigger;
+        INTAKE_IN = () -> gamepad1.right_trigger;
+        INTAKE_OUT = () -> gamepad1.left_trigger;
     }
 
     public static void initOperator(Gamepad gamepad2){
