@@ -33,19 +33,20 @@ public class ControlScheme {
     public static Supplier<Boolean> INDEXER_BLUE;
     public static Supplier<Boolean> INDEXER_WHITE;
 
+    //Shooter
+    public static Supplier<Boolean> SHOOTER_CYCLE;
+
     public static void initDriver(Gamepad gamepad1) {
         LEFT_SIDE_DRIVE = () -> gamepad1.left_stick_y;
         RIGHT_SIDE_DRIVE = () -> gamepad1.right_stick_y;
         DRIVE_SLOW_MODE = () -> gamepad1.a;
         INTAKE_IN = () -> gamepad1.right_trigger;
         INTAKE_OUT = () -> gamepad1.left_trigger;
+        TRANSFER_ACTIVE = () -> gamepad1.left_bumper;
     }
 
     public static void initOperator(Gamepad gamepad2){
-        SHOOTER_POWER_PLUS = () -> gamepad2.right_trigger;
-        SHOOTER_POWER_MINUS = () -> gamepad2.left_trigger;
-        TRANSFER_CLEAR = () -> gamepad2.right_bumper;
-        TRANSFER_ACTIVE = () -> gamepad2.left_bumper;
+        SHOOTER_CYCLE = () -> gamepad2.rightBumperWasPressed();
 
         INDEXER_RED = () -> gamepad2.a;
         INDEXER_BLUE = () -> gamepad2.b;

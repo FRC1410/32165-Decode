@@ -28,9 +28,9 @@ public class Constants {
     public static final double PADDLE_POS_2 = 250.0;
 
     public static final double INDEXER_POS_BLUE = 0.0;
-    public static final double INDEXER_POS_RED = 0.0;
+    public static final double INDEXER_POS_RED = 90.0;
 
-    public static final double INDEXER_POS_WHITE = 0.0;
+    public static final double INDEXER_POS_WHITE = 189.0;
 
     //controller
     public static final double MATCH_HALF_TIME = 60.0;

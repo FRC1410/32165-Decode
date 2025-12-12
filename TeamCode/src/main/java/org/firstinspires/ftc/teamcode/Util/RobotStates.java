@@ -16,4 +16,11 @@ public class RobotStates {
         BLUE,
         WHITE
     }
+    public enum ShooterStates{
+        FORWARD,
+        BACKWARD,
+        NEUTRAL,
+        HALF_POWER
+    }
+
 }

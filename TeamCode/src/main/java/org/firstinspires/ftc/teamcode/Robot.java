@@ -49,9 +49,9 @@ public class Robot extends OpMode {
 
     public void doTelemetry() {
         this.drivetrain.drivetrainData(telemetry);
-        this.shooter.shooterTelem(telemetry);
         this.transfer.doTelemetry(telemetry);
         this.indexer.doTelemetry(telemetry);
+        this.shooter.shooterTelem(telemetry);
 
         //this always goes last in this method:
         telemetry.update();
@@ -66,17 +66,10 @@ public class Robot extends OpMode {
                 drivetrainToggle.toggleButton(ControlScheme.DRIVE_SLOW_MODE.get())
         );
 
-        this.intake.run(gamepad1.left_trigger, gamepad1.right_trigger);
+        this.intake.run(ControlScheme.INTAKE_IN.get(), ControlScheme.INTAKE_OUT.get());
 
-        this.shooter.run(
-                ControlScheme.SHOOTER_POWER_PLUS.get(),
-                ControlScheme.SHOOTER_POWER_MINUS.get()
-        );
-        this.transfer.goToClear(
-                ControlScheme.TRANSFER_CLEAR.get()
-        );
         this.transfer.goToTransfer(
-                ControlScheme.TRANSFER_TRANSFER.get()
+                ControlScheme.TRANSFER_ACTIVE.get()
         );
         this.transfer.update();
 
@@ -87,6 +80,9 @@ public class Robot extends OpMode {
 
         this.rumblerDriver.update();
         this.rumblerOperator.update();
+        if (ControlScheme.SHOOTER_CYCLE.get()) {
+            this.shooter.cycle();
+        }
 
         doTelemetry();
     }
