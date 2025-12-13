@@ -29,8 +29,12 @@ public class Constants {
 
     public static final double INDEXER_POS_BLUE = 0.0;
     public static final double INDEXER_POS_RED = 90.0;
-
     public static final double INDEXER_POS_WHITE = 189.0;
+
+    // Halfway positions
+    public static final double INDEXER_POS_RED_BLUE_HALF = 130;  // 45.0
+    public static final double INDEXER_POS_BLUE_WHITE_HALF = 50;  // 94.5
+    public static final double INDEXER_POS_WHITE_RED_HALF = 228;  // 139.5
 
     //controller
     public static final double MATCH_HALF_TIME = 60.0;

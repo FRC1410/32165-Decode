@@ -13,8 +13,11 @@ public class RobotStates {
     }
     public enum Indexer{
         RED,
+        RED_BLUE_HALF,   // halfway between RED and BLUE
         BLUE,
-        WHITE
+        BLUE_WHITE_HALF, // halfway between BLUE and WHITE
+        WHITE,
+        WHITE_RED_HALF   // halfway between WHITE and RED
     }
     public enum ShooterStates{
         FORWARD,

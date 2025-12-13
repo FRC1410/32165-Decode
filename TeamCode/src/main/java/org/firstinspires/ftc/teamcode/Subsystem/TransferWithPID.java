@@ -84,11 +84,13 @@ public class TransferWithPID {
                 // Timer elapsed, go back to CLEAR
                 this.setCurrentState(RobotStates.Transfer.CLEAR);
                 waitingToReturnToClear = false;
+                // Re-fetch state and target after automatic state change
+                desiredState = this.getCurrentState();
+                targetPos = this.getTargetPos(desiredState);
+                error = targetPos - currentPos;
+                atTarget = Math.abs(error) <= TRANSFER_THRESHHOLD;
             }
-        }
-
-        // Reset the waiting flag if we're not in TRANSFER state
-        if (desiredState != RobotStates.Transfer.TRANSFER) {
+        } else {
             waitingToReturnToClear = false;
         }
 

@@ -56,6 +56,12 @@ public class Indexer {
                 return INDEXER_POS_BLUE;
             case WHITE:
                 return INDEXER_POS_WHITE;
+            case RED_BLUE_HALF:
+                return INDEXER_POS_RED_BLUE_HALF;
+            case BLUE_WHITE_HALF:
+                return INDEXER_POS_BLUE_WHITE_HALF;
+            case WHITE_RED_HALF:
+                return INDEXER_POS_WHITE_RED_HALF;
             default:
                 return INDEXER_POS_WHITE;
         }
@@ -85,24 +91,67 @@ public class Indexer {
         return output;
     }
 
-    // Face button A - go to RED state
-    public void goToRed(Boolean go) {
+    // Intake positions only (halfway positions)
+    private static final RobotStates.Indexer[] INTAKE_STATES = {
+        RobotStates.Indexer.RED_BLUE_HALF,
+        RobotStates.Indexer.BLUE_WHITE_HALF,
+        RobotStates.Indexer.WHITE_RED_HALF
+    };
+
+    // Shooting positions only (colors)
+    private static final RobotStates.Indexer[] SHOOTING_STATES = {
+        RobotStates.Indexer.RED,
+        RobotStates.Indexer.BLUE,
+        RobotStates.Indexer.WHITE
+    };
+
+    // A button - go to next shooting position (colors only)
+    public void nextShootingPosition(Boolean go) {
         if (go) {
-            this.setCurrentState(RobotStates.Indexer.RED);
+            int currentIndex = getShootingIndex();
+            int nextIndex = (currentIndex + 1) % SHOOTING_STATES.length;
+            this.setCurrentState(SHOOTING_STATES[nextIndex]);
         }
     }
 
-    // Face button B - go to BLUE state
-    public void goToBlue(Boolean go) {
+    // B button - go to next intake position (halfway positions only)
+    public void nextIntakePosition(Boolean go) {
         if (go) {
-            this.setCurrentState(RobotStates.Indexer.BLUE);
+            int currentIndex = getIntakeIndex();
+            int nextIndex = (currentIndex + 1) % INTAKE_STATES.length;
+            this.setCurrentState(INTAKE_STATES[nextIndex]);
         }
     }
 
-    // Face button X - go to WHITE state
-    public void goToWhite(Boolean go) {
-        if (go) {
-            this.setCurrentState(RobotStates.Indexer.WHITE);
+    private int getShootingIndex() {
+        // Find nearest shooting position
+        switch (this.currentState) {
+            case RED:
+            case RED_BLUE_HALF:
+            case WHITE_RED_HALF:
+                return 0; // RED
+            case BLUE:
+            case BLUE_WHITE_HALF:
+                return 1; // BLUE
+            case WHITE:
+            default:
+                return 2; // WHITE
+        }
+    }
+
+    private int getIntakeIndex() {
+        // Find nearest intake (half) position
+        switch (this.currentState) {
+            case RED_BLUE_HALF:
+            case RED:
+            case BLUE:
+                return 0; // RED_BLUE_HALF
+            case BLUE_WHITE_HALF:
+            case WHITE:
+                return 1; // BLUE_WHITE_HALF
+            case WHITE_RED_HALF:
+            default:
+                return 2; // WHITE_RED_HALF
         }
     }
 

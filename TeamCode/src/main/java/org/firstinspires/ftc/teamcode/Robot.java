@@ -73,9 +73,8 @@ public class Robot extends OpMode {
         );
         this.transfer.update();
 
-        this.indexer.goToRed(ControlScheme.INDEXER_RED.get());
-        this.indexer.goToBlue(ControlScheme.INDEXER_BLUE.get());
-        this.indexer.goToWhite(ControlScheme.INDEXER_WHITE.get());
+        this.indexer.nextShootingPosition(ControlScheme.INDEXER_NEXT_SHOOTING.get());
+        this.indexer.nextIntakePosition(ControlScheme.INDEXER_NEXT_INTAKE.get());
         this.indexer.update();
 
         this.rumblerDriver.update();
