@@ -29,8 +29,8 @@ public class ControlScheme {
     public static Supplier<Boolean> TRANSFER_ACTIVE;
 
     //Indexer
-    public static Supplier<Boolean> INDEXER_NEXT_SHOOTING;  // A - next shooting position (colors)
-    public static Supplier<Boolean> INDEXER_NEXT_INTAKE;    // B - next intake position (half positions)
+    public static Supplier<Float> INDEXER_NEXT_SHOOTING;  // A - next shooting position (colors)
+    public static Supplier<Float> INDEXER_NEXT_INTAKE;    // B - next intake position (half positions)
 
     //Shooter
     public static Supplier<Boolean> SHOOTER_CYCLE;
@@ -46,10 +46,10 @@ public class ControlScheme {
 
     public static void initOperator(Gamepad gamepad2){
         SHOOTER_CYCLE = () -> gamepad2.rightBumperWasPressed();
-        INTAKE_IN = () -> gamepad2.right_trigger;
-        INTAKE_OUT = () -> gamepad2.left_trigger;
+        //INTAKE_IN = () -> gamepad2.right_trigger;
+        //INTAKE_OUT = () -> gamepad2.left_trigger;
 
-        INDEXER_NEXT_SHOOTING = () -> gamepad2.aWasPressed();  // A - next shooting position (colors)
-        INDEXER_NEXT_INTAKE = () -> gamepad2.bWasPressed();    // B - next intake position (half positions)
+        INDEXER_NEXT_SHOOTING = () -> gamepad2.right_trigger; //gamepad2.aWasPressed();   A - next shooting position (colors)
+        INDEXER_NEXT_INTAKE = () -> gamepad2.left_trigger; //gamepad2.bWasPressed();    // B - next intake position (half positions)
     }
 }

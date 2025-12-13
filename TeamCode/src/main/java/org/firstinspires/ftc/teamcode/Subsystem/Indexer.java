@@ -114,7 +114,7 @@ public class Indexer {
         }
     }
 
-    // B button - go to next intake position (halfway positions only)
+    // B button - go to next indexer position (halfway positions only)
     public void nextIntakePosition(Boolean go) {
         if (go) {
             int currentIndex = getIntakeIndex();
@@ -140,7 +140,7 @@ public class Indexer {
     }
 
     private int getIntakeIndex() {
-        // Find nearest intake (half) position
+        // Find nearest indexer (half) position
         switch (this.currentState) {
             case RED_BLUE_HALF:
             case RED:

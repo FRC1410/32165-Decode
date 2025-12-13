@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystem.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystem.Indexer;
 import org.firstinspires.ftc.teamcode.Subsystem.Intake;
+import org.firstinspires.ftc.teamcode.Subsystem.ManualIndexer;
 import org.firstinspires.ftc.teamcode.Subsystem.TransferWithPID;
 import org.firstinspires.ftc.teamcode.Util.DriverUtil.ControlScheme;
 import org.firstinspires.ftc.teamcode.Util.DriverUtil.Rumbler;
@@ -24,7 +25,7 @@ public class Robot extends OpMode {
     private final Intake intake = new Intake();
 
     private final TransferWithPID transfer = new TransferWithPID();
-    private final Indexer indexer = new Indexer();
+    private final ManualIndexer indexer = new ManualIndexer();
     private final Toggle drivetrainToggle = new Toggle();
     
     private ElapsedTime runtime;
@@ -50,7 +51,7 @@ public class Robot extends OpMode {
     public void doTelemetry() {
         this.drivetrain.drivetrainData(telemetry);
         this.transfer.doTelemetry(telemetry);
-        this.indexer.doTelemetry(telemetry);
+//        this.indexer.doTelemetry(telemetry);
         this.shooter.shooterTelem(telemetry);
 
         //this always goes last in this method:
@@ -73,9 +74,9 @@ public class Robot extends OpMode {
         );
         this.transfer.update();
 
-        this.indexer.nextShootingPosition(ControlScheme.INDEXER_NEXT_SHOOTING.get());
-        this.indexer.nextIntakePosition(ControlScheme.INDEXER_NEXT_INTAKE.get());
-        this.indexer.update();
+        this.indexer.run(ControlScheme.INDEXER_NEXT_SHOOTING.get(), ControlScheme.INDEXER_NEXT_INTAKE.get());
+        //this.indexer.nextIntakePosition(ControlScheme.INDEXER_NEXT_INTAKE.get());
+        //this.indexer.update();
 
         this.rumblerDriver.update();
         this.rumblerOperator.update();
